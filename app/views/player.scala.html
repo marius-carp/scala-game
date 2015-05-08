@@ -1,0 +1,24 @@
+@(players: List[PlayerBag])
+
+@main("Player Bag List") {
+    <h2>Player's items:</h2>
+
+    <table>
+        <tr><th>idPlayer</th><th>Name</th><th>Level</th><th>Items</th></tr>
+        @for(p <- players){
+            <tr valign="top">
+                <td>@p.idPlayer</td>
+                <td>@p.name</td>
+                <td>@p.level</td>
+                <td>@if(p.items.isEmpty) {
+                    <span>--</span>
+                } else {
+                    @for(i <- p.items){
+                        @i.name <br>
+                    }
+                }
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,20 @@
+@(players: List[Player])
+
+@main("Player List") {
+    <h2>Insert a player here:</h2>
+
+    <form action="/player/single" method="POST">
+        <input name="name" type="text" placeholder="player name"/>
+        <input name="level" type="text" placeholder="player level"/>
+        <input type="submit"/>
+    </form>
+
+    <h2>Previously inserted players:</h2>
+
+    <table>
+        <tr><th>idPlayer</th><th>Name</th><th>Level</th></tr>
+        @for(p <- players){
+            <tr><td>@p.idPlayer</td><td>@p.name</td><td>@p.level</td></tr>
+        }
+    </table>
+}

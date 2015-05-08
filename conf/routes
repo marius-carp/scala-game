@@ -1,0 +1,27 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                      controllers.Application.index
+
+# Insert single player
+POST        /player/single         controllers.Application.addSinglePlayer
+
+# Get Players Json Format
+GET         /player/multi          controllers.Application.findAll
+
+# Insert multi player Json format
+POST        /player/multi          controllers.Application.addMultiPlayer
+
+# Get Players with their items
+GET         /player                controllers.Application.getSinglePlayerBag
+
+# Get Players with their items Json format
+GET         /item/multi            controllers.Application.getSinglePlayerBag
+
+# Add Item in Player's bag Json format
+POST        /item/multi            controllers.Application.buySingleItem
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file          controllers.Assets.at(path="/public", file)
