@@ -81,7 +81,7 @@ trait PostgresSupport {
 
 ## Loading Textures
 
-Create a package models and in it a case class named Player. [complete models]()
+Create a package models and in it a case class named Player. [complete models](https://github.com/marius-carp/scala-game/tree/master/app/models)
 
 ```scala
 case class Player (
@@ -91,7 +91,7 @@ case class Player (
 )
 ```
 
-Having our modeles we just need to map them to tabels. As you see in the model `idPlayer` is optional because we will let `PostgreSQL` to generate a `PrimaryKey` for the player using `AutoInc`. [complete tables]()
+Having our modeles we just need to map them to tabels. As you see in the model `idPlayer` is optional because we will let `PostgreSQL` to generate a `PrimaryKey` for the player using `AutoInc`. [complete tables](https://github.com/marius-carp/scala-game/tree/master/app/dao)
 
 ```scala
 class PlayerTable(tag: Tag) extends Table[Player](tag, "players") {
@@ -102,6 +102,13 @@ class PlayerTable(tag: Tag) extends Table[Player](tag, "players") {
   def * = (idPlayer.?, name, level) <> (Player.tupled, Player.unapply _)
 }
 ```
+
+Play tracks your database evolutions using several evolutions script. These scripts are written in plain old SQL and should be located in the db/evolutions directory of your application.
+
+The first script is named [1.sql](https://github.com/marius-carp/scala-game/blob/master/conf/evolutions/default/1.sql)
+
+If evolutions are activated, Play will check your database schema state before each request in DEV mode, or before starting the application in PROD mode. In DEV mode, if your database schema is not up to date, an error page will suggest that you to synchronize your database schema by running the appropriate SQL script.
+
 
 When a user first time accessing our appliction on localhost `"localhost/"` a GET HTTP request will be made to this rote `"/"`. The entire list of routes can be found in the file `conf/routes`, is the configuration file used by the router. This file lists all of the routes needed by the application. Each route consists of an HTTP method and URI pattern, both associated with a call to an Action generator.
 
