@@ -1,4 +1,4 @@
-package dao
+package dao.defaultdao
 
 import helpers.PostgresSupport
 import models.Player
@@ -17,7 +17,7 @@ object Players extends PostgresSupport {
 
   def findAll = players.list
 
-  def savePlayer(player: Player): Player = {
+  def savePlayer(player: Player)(implicit session: Session): Player = {
     player.idPlayer match {
       case None => {
         val id = (players returning players.map(_.idPlayer)) += player
@@ -31,6 +31,6 @@ object Players extends PostgresSupport {
         player
       }
     }
-  }
+      }
 
 }

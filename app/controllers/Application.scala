@@ -1,12 +1,13 @@
 package controllers
 
-import dao.{Inventories, Players}
-import models.{PlayerBag, Item, Inventory, Player}
+import dao.defaultdao.{Players, Items, Inventories}
+import models._
 import play.api.data._
 import play.api.data.Forms._
 import play.api.db.slick.DBAction
 import play.api.libs.json.Json
 import play.api.mvc._
+import repository.Repository
 
 object Application extends Controller {
 
@@ -14,6 +15,7 @@ object Application extends Controller {
   implicit val itemJson = Json.format[Item]
   implicit val inventoryJson = Json.format[Inventory]
   implicit val playerBagJson = Json.format[PlayerBag]
+  implicit val bagPlayerJson = Json.format[BagPlayer]
 
   val playerForm = Form(
     mapping (
@@ -60,7 +62,7 @@ object Application extends Controller {
 
   def addSinglePlayer = DBAction { implicit rs =>
     val player = playerForm.bindFromRequest.get
-    Players.savePlayer(player)
+    /*Players.savePlayer(player)*/
 
     Redirect(routes.Application.index)
   }
@@ -71,7 +73,7 @@ object Application extends Controller {
 
   def addMultiPlayer = DBAction(parse.json) { implicit rs =>
     rs.request.body.validate[Player].map { player =>
-      Players.savePlayer(player)
+      /*Players.savePlayer(player)*/
 
       Ok(Json.toJson(player))
     }.recoverTotal{
@@ -90,10 +92,18 @@ object Application extends Controller {
   }
 
   def getSinglePlayerBag = DBAction { implicit rs =>
-    Ok(views.html.player(Inventories.getPlayersWithItems))
+    val ceva = BagPlayer(Players.findAll, Items.findAll)
+
+    Ok(Json.toJson(ceva))
   }
 
   def getMultiPlayerBag = DBAction{ implicit rs =>
     Ok(Json.toJson(Inventories.getPlayersWithItems))
+  }
+
+
+  def test = DBAction{ implicit rs =>
+    Repository.save()
+    Ok("merge")
   }
 }

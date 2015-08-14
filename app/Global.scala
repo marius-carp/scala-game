@@ -1,4 +1,4 @@
-import dao.Items
+import dao.defaultdao.Items
 import models.Item
 import play.api.GlobalSettings
 import play.api._
@@ -38,7 +38,7 @@ object Global extends GlobalSettings {
           damage = Some(11),
           armor = None
         )
-      ).foreach(Items.save)
+      )/*.foreach(Items.save)*/
     }
   }
 

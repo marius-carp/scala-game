@@ -1,4 +1,4 @@
-package dao
+package dao.defaultdao
 
 import helpers.PostgresSupport
 import models.Item
@@ -20,7 +20,7 @@ object Items extends PostgresSupport{
 
   def findAll = items.list
 
-  def save(item: Item): Item = {
+  def save(item: Item)(implicit session: Session): Item = {
     item.idItem match {
       case None => {
         val id = (items returning items.map(_.idItem)) += item

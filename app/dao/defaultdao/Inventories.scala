@@ -1,7 +1,7 @@
-package dao
+package dao.defaultdao
 
 import helpers.PostgresSupport
-import models.{Item, PlayerBag, Inventory}
+import models.{Inventory, Item, PlayerBag}
 import play.api.Logger
 import play.api.db.slick.Config.driver.simple._
 
